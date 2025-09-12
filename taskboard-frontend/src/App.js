@@ -8,7 +8,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    //  Fetch tasks once when App loads
+    //  Fetch tasks once when App loads test
     useEffect(() => {
         fetch("https://localhost:7114/api/task")
             .then((response) => {
