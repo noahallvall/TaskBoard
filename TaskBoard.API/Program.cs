@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskBoard.API.Context;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); //Test for git
 
 
 builder.Services.AddDbContext<TaskBoardContext>(options =>
