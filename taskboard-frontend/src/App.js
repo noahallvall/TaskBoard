@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TaskList from "./Components/TaskList";
 import AddTask from "./Components/AddTask";
+import DeleteTask from "./Components/DeleteTask";
+import UpdateTask from "./Components/UpdateTask";
 
 function App() {
     //  App holds the "single source of truth"
@@ -26,9 +28,15 @@ function App() {
     }, []);
 
     //  Function to add a new task (called by AddTaskForm)
-    const addTask = (newTask) => {
-        setTasks((prevTasks) => [...prevTasks, newTask]);
-    };
+    const AddTask = (newTask) => setTasks((prev) => [...prev, newTask]);
+
+    const UpdateTask = (updatedTask) =>
+        setTasks((prev) =>
+            prev.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+        );
+
+    const DeleteTask = (id) =>
+        setTasks((prev) => prev.filter((task) => task.id !== id));
 
     if (isLoading) return <p>Loading tasks...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -37,9 +45,15 @@ function App() {
         <div className="App">
             <h1>My TaskBoard</h1>
 
-            {/*  Pass down props */}
-            <AddTask onTaskAdded={addTask} />
-            <TaskList tasks={tasks} />
+            {/*  Pass down props for CRUD¨*/}
+            <AddTask onTaskAdded={AddTask} />
+
+            <TaskList
+                tasks={tasks}
+                onTaskUpdated={UpdateTask}
+                onTaskDeleted={DeleteTask}
+            />
+
         </div>
     );
 }

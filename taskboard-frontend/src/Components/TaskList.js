@@ -1,6 +1,8 @@
 ﻿import React from "react";
+import UpdateTask from "./UpdateTask";
+import DeleteTask from "./DeleteTask";
 
-function TaskList({ tasks }) {
+function TaskList({ tasks, onTaskUpdated, onTaskDeleted }) {
     return (
         <div>
             <h2>Task List</h2>
@@ -9,6 +11,10 @@ function TaskList({ tasks }) {
                     <li key={task.id}>
                         <strong>{task.title}</strong>: {task.description}{" "}
                         [{task.isDone ? "Done" : "Not Done"}]
+
+                        {/* Buttons for update & delete */}
+                        <UpdateTask task={task} onTaskUpdated={onTaskUpdated} />
+                        <DeleteTask taskId={task.id} onTaskDeleted={onTaskDeleted} />
                     </li>
                 ))}
             </ul>
