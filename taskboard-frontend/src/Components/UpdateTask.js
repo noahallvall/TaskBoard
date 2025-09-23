@@ -32,6 +32,7 @@ function UpdateTask({ task, onTaskUpdated }) {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />
+
             <label>
                 <input
                     type="checkbox"
@@ -40,7 +41,9 @@ function UpdateTask({ task, onTaskUpdated }) {
                 />
                 Done
             </label>
+
             <button onClick={handleUpdate}>Save</button>
+
             <button onClick={() => setIsEditing(false)}>Cancel</button>
         </div>
     ) : (
