@@ -1,4 +1,6 @@
 ﻿import React, { useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function UpdateTask({ task, onTaskUpdated }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -6,48 +8,40 @@ function UpdateTask({ task, onTaskUpdated }) {
     const [description, setDescription] = useState(task.description);
     const [isDone, setIsDone] = useState(task.isDone);
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
         const updatedTask = { ...task, title, description, isDone };
-
-        fetch(`https://localhost:7114/api/task/${task.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updatedTask),
-        })
-            .then((res) => {
-                if (!res.ok) throw new Error("Failed to update task");
-                return res.json();
-            })
-            .then((data) => {
-                onTaskUpdated(data);
-                setIsEditing(false);
-            })
-            .catch((err) => console.error(err));
+        try {
+            const res = await fetch(`https://localhost:7114/api/task/${task.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedTask),
+            });
+            if (!res.ok) throw new Error("Failed to update task");
+            const data = await res.json();
+            onTaskUpdated(data);
+            setIsEditing(false);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return isEditing ? (
-        <div>
-            <input value={title} onChange={(e) => setTitle(e.target.value)} />
-            <input
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+        <Form className="d-flex flex-column gap-2">
+            <Form.Control value={title} onChange={e => setTitle(e.target.value)} placeholder="Title" />
+            <Form.Control value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" />
+            <Form.Check
+                type="checkbox"
+                label="Done"
+                checked={isDone}
+                onChange={e => setIsDone(e.target.checked)}
             />
-
-            <label>
-                <input
-                    type="checkbox"
-                    checked={isDone}
-                    onChange={(e) => setIsDone(e.target.checked)}
-                />
-                Done
-            </label>
-
-            <button onClick={handleUpdate}>Save</button>
-
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
-        </div>
+            <div className="d-flex gap-2">
+                <Button variant="success" size="sm" onClick={handleUpdate}>Save</Button>
+                <Button variant="secondary" size="sm" onClick={() => setIsEditing(false)}>Cancel</Button>
+            </div>
+        </Form>
     ) : (
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <Button variant="primary" size="sm" onClick={() => setIsEditing(true)}>Edit</Button>
     );
 }
 
