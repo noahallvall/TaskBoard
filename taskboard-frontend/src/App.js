@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TaskList from "./Components/TaskList";
 import AddTask from "./Components/AddTask";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
     // App holds the "single source of truth"
