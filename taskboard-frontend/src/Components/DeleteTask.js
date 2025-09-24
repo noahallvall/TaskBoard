@@ -9,7 +9,7 @@ function DeleteTask({ taskId, onTaskDeleted }) {
             if (!res.ok) throw new Error("Failed to delete task");
             onTaskDeleted(taskId);
         } catch (err) {
-            console.error(err);
+            console.error(err); 
         }
     };
 
