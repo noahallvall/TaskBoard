@@ -1,44 +1,78 @@
 ﻿import React, { useState } from "react";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 function AddTask({ onTaskAdded }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [isDone, setIsDone] = useState(false);
 
-    const handleAdd = async () => {
-        if (!title || !description) return;
-        const newTask = { title, description, isDone: false };
-        try {
-            const res = await fetch("https://localhost:7114/api/task", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newTask),
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const newTask = {
+            title: title,
+            description: description,
+            isDone: isDone
+        };
+
+        fetch("https://localhost:7114/api/task", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTask)
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to create task");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Task created:", data);
+                if (onTaskAdded) {
+                    onTaskAdded(data); // Let parent component update task list
+                }
+                setTitle("");
+                setDescription("");
+                setIsDone(false);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
             });
-            if (!res.ok) throw new Error("Failed to add task");
-            const data = await res.json();
-            onTaskAdded(data);
-            setTitle("");
-            setDescription("");
-        } catch (err) {
-            console.error(err);
-        }
     };
 
     return (
-        <Form className="d-flex gap-2 mb-3">
-            <Form.Control
-                placeholder="Title"
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-            />
-            <Form.Control
-                placeholder="Description"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-            />
-            <Button variant="success" onClick={handleAdd}>Add Task</Button>
-        </Form>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Title:</label>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                />
+            </div>
+            <div>
+                <label>Description:</label>
+                <input
+                    type="text"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                />
+            </div>
+            <div>
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={isDone}
+                        onChange={(e) => setIsDone(e.target.checked)}
+                    />
+                    Done
+                </label>
+            </div>
+            <button type="submit">Add Task</button>
+        </form>
     );
 }
 
