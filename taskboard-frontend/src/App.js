@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TaskList from "./Components/TaskList";
 import AddTask from "./Components/AddTask";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 function App() {
     // App holds the "single source of truth"
@@ -44,7 +42,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1>My TaskBoard</h1>
+            <h1 className = "App-Title"> My TaskBoard </h1>
 
             {/* Pass down props for CRUD */}
             <AddTask onTaskAdded={handleAddTask} />

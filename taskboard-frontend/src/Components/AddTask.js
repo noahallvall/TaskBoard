@@ -1,4 +1,5 @@
 ﻿import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 function AddTask({ onTaskAdded }) {
     const [title, setTitle] = useState("");
@@ -42,38 +43,44 @@ function AddTask({ onTaskAdded }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Title:</label>
-                <input
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formTitle">
+                <Form.Label>Title</Form.Label>
+                <Form.Control
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
+                    placeholder="Enter task title"
                 />
-            </div>
-            <div>
-                <label>Description:</label>
-                <input
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formDescription">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
                     type="text"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
+                    placeholder="Enter task description"
                 />
-            </div>
-            <div>
-                <label>
-                    <input
-                        type="checkbox"
-                        checked={isDone}
-                        onChange={(e) => setIsDone(e.target.checked)}
-                    />
-                    Done
-                </label>
-            </div>
-            <button type="submit">Add Task</button>
-        </form>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formIsDone">
+                <Form.Check
+                    type="checkbox"
+                    label="Done"
+                    checked={isDone}
+                    onChange={(e) => setIsDone(e.target.checked)}
+                />
+            </Form.Group>
+
+            <Button type="submit" variant="primary">
+                Add Task
+            </Button>
+        </Form>
     );
 }
+
 
 export default AddTask;
