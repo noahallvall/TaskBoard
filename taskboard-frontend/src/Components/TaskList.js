@@ -8,9 +8,11 @@ function TaskList({ tasks, onTaskUpdated, onTaskDeleted }) {
             <h2>Task List</h2>
             <ul>
                 {tasks.map((task) => (
-                    <li key={task.id}>
-                        <strong>{task.title}</strong>: {task.description}{" "}
-                        [{task.isDone ? "Done" : "Not Done"}]
+
+                    <li key={task.id} className="task-item">
+                        <div><strong>Title:</strong> {task.title}</div>
+                        <div><strong>Description:</strong> {task.description}</div>
+                        <div>Status: {task.isDone ? "Done" : "Not Done"}</div>
 
                         {/* Buttons for update & delete */}
                         <UpdateTask task={task} onTaskUpdated={onTaskUpdated} />
