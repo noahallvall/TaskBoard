@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskBoard.API.Context;
 
@@ -10,9 +11,11 @@ using TaskBoard.API.Context;
 namespace TaskBoard.API.Migrations
 {
     [DbContext(typeof(TaskBoardContext))]
-    partial class TaskBoardContextModelSnapshot : ModelSnapshot
+    [Migration("20251001160429_addedColumnPending")]
+    partial class addedColumnPending
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

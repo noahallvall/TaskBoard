@@ -6,6 +6,7 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public bool isDone { get; set; }    
+        public bool isPending { get; set; } 
 
     }
 }
