@@ -66,14 +66,6 @@ function AddTask({ onTaskAdded }) {
                 />
             </Form.Group>
 
-            {/*<Form.Group className="mb-3" controlId="formIsDone">*/}
-            {/*    <Form.Check*/}
-            {/*        type="checkbox"*/}
-            {/*        label="Done"*/}
-            {/*        checked={isDone}*/}
-            {/*        onChange={(e) => setIsDone(e.target.checked)}*/}
-            {/*    />*/}
-            {/*</Form.Group>*/}
 
             <Button type="submit" variant="primary">
                 Add Task

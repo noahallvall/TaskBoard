@@ -3,9 +3,10 @@ import TaskList from "./TaskList";
 
 function FilterTask({ tasks, onTaskUpdated, onTaskDeleted }) {
     // Filter tasks by status
-    const undoneTasks = tasks.filter(task => !task.isDone);
-    const pendingTasks = tasks.filter(task => task.isPending); // if you track pending separately
+    const undoneTasks = tasks.filter(task => !task.isDone && !task.isPending);
+    const pendingTasks = tasks.filter(task => task.isPending && !task.isDone);
     const doneTasks = tasks.filter(task => task.isDone);
+
 
     return (
         <div className="task-sections">

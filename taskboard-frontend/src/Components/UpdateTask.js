@@ -5,9 +5,10 @@ function UpdateTask({ task, onTaskUpdated }) {
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
     const [isDone, setIsDone] = useState(task.isDone);
+    const [isPending, setIsPending ] = useState(task.isPending);
 
     const handleUpdate = () => {
-        const updatedTask = { ...task, title, description, isDone };
+        const updatedTask = { ...task, title, description, isDone, isPending };
 
         fetch(`https://localhost:7114/api/task/${task.id}`, {
             method: "PUT",
@@ -36,10 +37,19 @@ function UpdateTask({ task, onTaskUpdated }) {
             <label>
                 <input
                     type="checkbox"
+                    checked={isPending}
+                    onChange={(e) => setIsPending(e.target.checked)}
+                />
+                Started not finished
+            </label>
+
+            <label>
+                <input
+                    type="checkbox"
                     checked={isDone}
                     onChange={(e) => setIsDone(e.target.checked)}
                 />
-                Done
+                Finished!
             </label>
 
             <button onClick={handleUpdate}>Save</button>

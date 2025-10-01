@@ -1,7 +1,7 @@
 .App {
     text-align: center;
     min-height: 100vh; /* makes the app take full viewport height */
-    background-color:lightskyblue; /* light blue background */
+    background-color:ivory; /* light blue background */
     display: flex;
     flex-direction: column;
     align-items: center; /* center content horizontally */

@@ -76,6 +76,7 @@ namespace TaskBoard.API.Controllers
             existingTask.Title = updatedTask.Title;
             existingTask.Description = updatedTask.Description;
             existingTask.isDone = updatedTask.isDone;
+            existingTask.isPending = updatedTask.isPending; 
 
             try
             {
