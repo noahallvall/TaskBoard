@@ -1,7 +1,7 @@
 .App {
     text-align: center;
     min-height: 100vh; /* makes the app take full viewport height */
-    background-color: aliceblue; /* light blue background */
+    background-color:lightskyblue; /* light blue background */
     display: flex;
     flex-direction: column;
     align-items: center; /* center content horizontally */
@@ -9,6 +9,31 @@
 }
 
 .App-Title {
-    color: #4b0082; /* dark violet title */
-    margin-bottom: 20px; /* space below title */
+    color:antiquewhite
 }
+
+/* Container holding the three sections */
+.task-sections {
+    display: flex; /* align boxes in a row */
+    justify-content: space-between; /* even spacing between boxes */
+    margin: 1rem; /* space around the container */
+    flex-wrap: wrap; /* stack on smaller screens */
+}
+
+/* Each box */
+.task-box {
+    flex: 1; /* all boxes take equal space */
+    border: 0.1rem solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    margin: 0.5rem; /* small space between boxes */
+    box-sizing: border-box; /* include padding in width */
+}
+
+    /* Box titles */
+    .task-box h2 {
+        text-align: center;
+        margin-top: 0;
+        font-size: 1rem;
+    }

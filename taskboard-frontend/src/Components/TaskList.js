@@ -5,8 +5,7 @@ import DeleteTask from "./DeleteTask";
 function TaskList({ tasks, onTaskUpdated, onTaskDeleted }) {
     return (
         <div>
-            <h2>Task List</h2>
-            <ul>
+           <ul>
                 {tasks.map((task) => (
 
                     <li key={task.id} className="task-item">

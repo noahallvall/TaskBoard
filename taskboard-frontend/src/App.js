@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import TaskList from "./Components/TaskList";
 import AddTask from "./Components/AddTask";
+import FilterTask from "./Components/FilterTask";
 import './App.css';
 
 function App() {
@@ -43,12 +43,14 @@ function App() {
 
     return (
         <div className="App">
-            <h1 className = "App-Title"> TaskBoard </h1>
+            <h1 className = "App-Title"> Welcome to your TaskBoard! </h1>
 
-            {/* Pass down props for CRUD */}
+            {/* props passed down for CRUD */}
             <AddTask onTaskAdded={handleAddTask} />
 
-            <TaskList
+            {/*Renders the 3 way display for status of task     */}
+
+            <FilterTask
                 tasks={tasks}
                 onTaskUpdated={handleUpdateTask}
                 onTaskDeleted={handleDeleteTask}

@@ -45,13 +45,13 @@ function AddTask({ onTaskAdded }) {
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formTitle">
-                <Form.Label>Title</Form.Label>
+                <Form.Label>What task needs to be done?</Form.Label>
                 <Form.Control
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                    placeholder="Enter task title"
+                    placeholder="Title"
                 />
             </Form.Group>
 
@@ -62,18 +62,18 @@ function AddTask({ onTaskAdded }) {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
-                    placeholder="Enter task description"
+                    placeholder="Description"
                 />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formIsDone">
-                <Form.Check
-                    type="checkbox"
-                    label="Done"
-                    checked={isDone}
-                    onChange={(e) => setIsDone(e.target.checked)}
-                />
-            </Form.Group>
+            {/*<Form.Group className="mb-3" controlId="formIsDone">*/}
+            {/*    <Form.Check*/}
+            {/*        type="checkbox"*/}
+            {/*        label="Done"*/}
+            {/*        checked={isDone}*/}
+            {/*        onChange={(e) => setIsDone(e.target.checked)}*/}
+            {/*    />*/}
+            {/*</Form.Group>*/}
 
             <Button type="submit" variant="primary">
                 Add Task
