@@ -10,10 +10,10 @@ function FilterTask({ tasks, onTaskUpdated, onTaskDeleted }) {
 
     return (
         <div className="task-sections">
-            {/* UNDONE TASKS */}
-            <div className="task-box">
-                <h2>Undone Tasks</h2> 
 
+            {/* UNDONE TASKS */}
+            <div className="task-box undone">
+                <h2>Undone</h2>
                 <TaskList
                     tasks={undoneTasks}
                     onTaskUpdated={onTaskUpdated}
@@ -22,9 +22,8 @@ function FilterTask({ tasks, onTaskUpdated, onTaskDeleted }) {
             </div>
 
             {/* PENDING TASKS */}
-            <div className="task-box">
-                <h2>Pending Tasks</h2>
-
+            <div className="task-box pending">
+                <h2>Pending</h2>
                 <TaskList
                     tasks={pendingTasks}
                     onTaskUpdated={onTaskUpdated}
@@ -33,17 +32,19 @@ function FilterTask({ tasks, onTaskUpdated, onTaskDeleted }) {
             </div>
 
             {/* DONE TASKS */}
-            <div className="task-box">
-                <h2>Done Tasks</h2>
-
+            <div className="task-box done">
+                <h2>Finished</h2>
                 <TaskList
                     tasks={doneTasks}
                     onTaskUpdated={onTaskUpdated}
                     onTaskDeleted={onTaskDeleted}
                 />
             </div>
+
         </div>
-    );
+
+        )
+
 }
 
 export default FilterTask;
