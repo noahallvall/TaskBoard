@@ -12,7 +12,14 @@ function DeleteTask({ taskId, onTaskDeleted }) {
             .catch((err) => console.error(err));
     };
 
-    return <button onClick={handleDelete}>Delete</button>;
+    return (
+        <button
+            className="btn btn-danger btn-sm"
+            onClick={handleDelete}
+        >
+            Delete
+        </button>
+    );
 }
 
 export default DeleteTask;

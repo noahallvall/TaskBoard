@@ -67,7 +67,7 @@ function AddTask({ onTaskAdded }) {
             </Form.Group>
 
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="success">
                 Add Task
             </Button>
         </Form>

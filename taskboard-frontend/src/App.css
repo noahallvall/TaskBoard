@@ -14,6 +14,7 @@
 
 .App-Title {
     color:black;
+    margin-bottom : 10vh;
 }
 
 /* Shared box styling */
@@ -23,6 +24,7 @@
     justify-content: space-between; /* even spacing between boxes */
     margin: 1rem; /* space around the container */
     flex-wrap: wrap; /* stack on smaller screens */
+    margin-top: 10vh;
 }
 
 .task-box {

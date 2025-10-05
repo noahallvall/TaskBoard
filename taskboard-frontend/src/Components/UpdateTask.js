@@ -1,14 +1,26 @@
 ﻿import React, { useState } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
 
 function UpdateTask({ task, onTaskUpdated }) {
-    const [isEditing, setIsEditing] = useState(false);
+    const [show, setShow] = useState(false);
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
-    const [isDone, setIsDone] = useState(task.isDone);
-    const [isPending, setIsPending ] = useState(task.isPending);
+    const [status, setStatus] = useState(
+        task.isDone ? "done" : task.isPending ? "pending" : "undone"
+    );
 
-    const handleUpdate = () => {
-        const updatedTask = { ...task, title, description, isDone, isPending };
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const handleSave = () => {
+        // convert status string back into boolean flags
+        const updatedTask = {
+            ...task,
+            title,
+            description,
+            isDone: status === "done",
+            isPending: status === "pending"
+        };
 
         fetch(`https://localhost:7114/api/task/${task.id}`, {
             method: "PUT",
@@ -21,44 +33,71 @@ function UpdateTask({ task, onTaskUpdated }) {
             })
             .then((data) => {
                 onTaskUpdated(data);
-                setIsEditing(false);
+                handleClose();
             })
             .catch((err) => console.error(err));
     };
 
-    return isEditing ? (
-        <div>
-            <input value={title} onChange={(e) => setTitle(e.target.value)} />
-            <input
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            />
+    return (
+        <>
 
-            <label>
-                <input
-                    type="checkbox"
-                    checked={isPending}
-                    onChange={(e) => setIsPending(e.target.checked)}
-                />
-                Started not finished
-            </label>
+            <Button variant="primary" size="sm" onClick={handleShow}>
+                Edit
+            </Button>
 
-            <label>
-                <input
-                    type="checkbox"
-                    checked={isDone}
-                    onChange={(e) => setIsDone(e.target.checked)}
-                />
-                Finished!
-            </label>
+            {/* Modal */}
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Task</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="formTaskTitle">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                        </Form.Group>
 
-            <button onClick={handleUpdate}>Save</button>
+                        <Form.Group className="mb-3" controlId="formTaskDescription">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </Form.Group>
 
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
-        </div>
-    ) : (
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+                        {/* Dropdown for status */}
+                        <Form.Group className="mb-3" controlId="formTaskStatus">
+                            <Form.Label>Status</Form.Label>
+                            <Form.Select
+                                value={status}
+                                onChange={(e) => setStatus(e.target.value)}
+                            >
+                                <option value="undone">Undone</option>
+                                <option value="pending">Pending</option>
+                                <option value="done">Finished</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleSave}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+
+            </Modal>
+        </>
     );
 }
 
-export default UpdateTask; 
+export default UpdateTask;
